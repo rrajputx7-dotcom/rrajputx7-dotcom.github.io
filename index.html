@@ -3,7 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Liquid Walls – 50 Phone Wallpapers</title>
+<title>MyWallpaper – Free HD Phone Wallpapers (iPhone, Xiaomi, Samsung)</title>
+<meta name="description" content="MyWallpaper: 50+ free HD iPhone-style liquid glass wallpapers for iPhone, Xiaomi, Samsung aur sab phones. Tap karo aur download karo.">
+<meta name="keywords" content="MyWallpaper, iphone wallpaper, liquid wallpaper, hd wallpaper, xiaomi wallpaper, phone wallpaper">
+<link rel="canonical" href="https://rrajputx7-dotcom.github.io/">
+<meta property="og:title" content="MyWallpaper – Free HD Phone Wallpapers">
+<meta property="og:description" content="50+ free iPhone-style liquid glass wallpapers. Download karo.">
+<meta property="og:type" content="website">
 <style>
 :root{--bg:#f4f7ff;--ink:#161a33;--mute:#5b6285;--glass:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,255,255,.18));--edge:rgba(255,255,255,.95);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -30,9 +36,11 @@ header p{margin:6px 0 0;color:var(--mute);font-size:15px}
 @media(min-width:900px){.grid{grid-template-columns:repeat(5,1fr)}}
 .card{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:9/19.5;cursor:pointer;padding:0;border:1px solid var(--edge);background:#000;transition:transform .45s cubic-bezier(.3,1.5,.5,1);animation:pop .7s both}
 .card:active{transform:scale(.95)}
-.card canvas{width:100%;height:100%;display:block}
+.card canvas,.card img{width:100%;height:100%;display:block;object-fit:cover}
 .card span{position:absolute;left:8px;right:8px;bottom:8px;border-radius:16px;padding:7px 10px;font-size:12.5px;font-weight:600;color:#161a33;text-align:left;background:rgba(255,255,255,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 #fff}
 @keyframes pop{from{opacity:0;transform:translateY(24px) scale(.9)}}
+.about{border-radius:24px;padding:18px 20px;margin-top:18px;color:var(--mute);font-size:14px;line-height:1.6}
+.about h2{margin:0 0 6px;font-size:17px;color:var(--ink)}
 #view{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:rgba(235,241,255,.5);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(14px + env(safe-area-inset-bottom,0px))}
 #view.open{display:flex}
 .sheet{width:min(360px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px;animation:rise .5s cubic-bezier(.2,1.4,.4,1)}
@@ -52,9 +60,10 @@ header p{margin:6px 0 0;color:var(--mute);font-size:15px}
 <svg width="0" height="0" style="position:absolute"><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="40"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></svg>
 <div class="liquid"><i></i><i></i><i></i></div>
 <main>
-<header class="glass"><h1>Liquid Walls</h1><p>50 iPhone-style wallpapers · Xiaomi, Samsung, sab phones ke liye</p></header>
+<header class="glass"><h1>MyWallpaper</h1><p>50+ free HD iPhone-style wallpapers · Xiaomi, Samsung, sab phones ke liye</p></header>
 <div class="chips" id="chips"></div>
 <div class="grid" id="grid"></div>
+<section class="about glass"><h2>MyWallpaper – Free HD Phone Wallpapers</h2><p>MyWallpaper par aapko Aurora, Liquid, Sunset, Minimal aur Amoled style ke 50 se zyada free HD wallpapers milenge. Ye iPhone, Xiaomi, Samsung aur sab Android phones ke liye perfect size me hain. Kisi bhi wallpaper par tap karo, preview dekho aur download karo.</p></section>
 </main>
 <div id="view"><div class="sheet">
 <div class="phone"><img id="big" alt="Wallpaper preview"></div>
@@ -64,8 +73,11 @@ header p{margin:6px 0 0;color:var(--mute);font-size:15px}
 <button class="btn" id="close">Close</button>
 </div></div>
 <script>
-const CATS=["Aurora","Liquid","Sunset","Minimal","Amoled"];
-const W=[];for(let i=0;i<50;i++)W.push({id:i,cat:Math.floor(i/10),name:CATS[Math.floor(i/10)]+" "+(i%10+1)});
+const CATS=["Aurora","Liquid","Sunset","Minimal","Amoled","Mere Photos"];
+const PH=["1000255281.jpg","1000255283.jpg","1000254926.jpg"];
+const W=[];
+PH.forEach((f,k)=>W.push({id:100+k,cat:5,name:"Mera Photo "+(k+1),img:f}));
+for(let i=0;i<50;i++)W.push({id:i,cat:Math.floor(i/10),name:CATS[Math.floor(i/10)]+" "+(i%10+1)});
 function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const hsl=(h,s,l,a=1)=>`hsla(${h%360},${s}%,${l}%,${a})`;
 function draw(c,w,h,i){
@@ -126,9 +138,11 @@ function render(){
   grid.innerHTML="";list=W.filter(v=>filter<0||v.cat===filter);
   list.forEach((v,n)=>{
     const b=document.createElement("button");b.className="card";b.style.animationDelay=Math.min(n,14)*35+"ms";
-    const c=document.createElement("canvas");c.width=200;c.height=433;draw(c,200,433,v.id);
+    let m;
+    if(v.img){m=document.createElement("img");m.alt=v.name;m.loading="lazy";m.onerror=()=>{v.missing=true;b.remove()};m.src=v.img}
+    else{m=document.createElement("canvas");m.width=200;m.height=433;draw(m,200,433,v.id)}
     const s=document.createElement("span");s.textContent=v.name;
-    b.append(c,s);b.onclick=()=>openView(n);grid.append(b);
+    b.append(m,s);b.onclick=()=>openView(n);grid.append(b);
   });
 }
 ["All",...CATS].forEach((t,k)=>{
@@ -139,16 +153,19 @@ function render(){
 const view=document.getElementById("view"),big=document.getElementById("big"),ttl=document.getElementById("ttl");
 let cur=0,url="";
 function show(){
-  const v=list[cur],c=document.createElement("canvas");c.width=1080;c.height=2340;draw(c,1080,2340,v.id);
-  url=c.toDataURL("image/png");big.src=url;ttl.textContent=v.name;
+  const v=list[cur];
+  if(v.img){url=v.img}
+  else{const c=document.createElement("canvas");c.width=1080;c.height=2340;draw(c,1080,2340,v.id);url=c.toDataURL("image/png")}
+  big.src=url;ttl.textContent=v.name;
 }
 function openView(n){cur=n;show();view.classList.add("open")}
+function step(d){const L=list.filter(v=>!v.missing);let i=L.indexOf(list[cur]);list=L;cur=(i+d+L.length)%L.length;show()}
 document.getElementById("close").onclick=()=>view.classList.remove("open");
 view.onclick=e=>{if(e.target===view)view.classList.remove("open")};
-document.getElementById("prev").onclick=()=>{cur=(cur-1+list.length)%list.length;show()};
-document.getElementById("next").onclick=()=>{cur=(cur+1)%list.length;show()};
-document.getElementById("dl").onclick=()=>{const a=document.createElement("a");a.href=url;a.download=list[cur].name.replace(" ","-")+".png";document.body.append(a);a.click();a.remove()};
+document.getElementById("prev").onclick=()=>step(-1);
+document.getElementById("next").onclick=()=>step(1);
+document.getElementById("dl").onclick=()=>{const v=list[cur],a=document.createElement("a");a.href=url;a.download=v.img?v.img:v.name.replace(" ","-")+".png";document.body.append(a);a.click();a.remove()};
 render();
 </script>
 </body>
-</html>
+  </html>
