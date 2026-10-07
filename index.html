@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Liquid Lotus</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{margin:0;height:100%;background:#07050d;color:#fff;font-family:-apple-system,"SF Pro Display",system-ui,sans-serif;overflow:hidden}
+#bg{position:fixed;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#1b1030,#07050d 70%)}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.7;transition:opacity 1.5s;animation:drift 14s ease-in-out infinite alternate}
+.b1{width:55vmax;height:55vmax;left:-15vmax;top:-10vmax;background:#ff5fb0}
+.b2{width:50vmax;height:50vmax;right:-18vmax;top:20vh;background:#6a5cff;animation-delay:-5s}
+.b3{width:45vmax;height:45vmax;left:5vw;bottom:-20vmax;background:#19c3d9;animation-delay:-9s}
+body.dim .blob{opacity:.18}
+@keyframes drift{to{transform:translate(8vmax,-6vmax) scale(1.2)}}
+
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06));backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(255,255,255,.08),0 12px 40px rgba(0,0,0,.35)}
+
+.scr{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:scale(1.06);filter:blur(14px);transition:opacity .9s,transform .9s,filter .9s,visibility .9s}
+.scr.on{opacity:1;visibility:visible;transform:none;filter:none}
+
+/* ---------- LOCK ---------- */
+#s1::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none;background:radial-gradient(circle at 50% 38%,var(--tint,transparent),transparent 65%)}
+#s1.bad{--tint:rgba(255,80,80,.3)}#s1.ok{--tint:rgba(80,255,150,.3)}
+#s1.bad::before,#s1.ok::before{opacity:1}
+.lockic{width:44px;height:44px;margin-bottom:14px;opacity:.9}
+#title{font-size:1.35rem;font-weight:500;margin-bottom:22px}
+#dots{display:flex;gap:16px;margin-bottom:12px}
+.d{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.85);transition:all .25s}
+.d.f{background:#fff;transform:scale(1.15)}
+#s1.bad .d{border-color:#ff9a9a}#s1.bad .d.f{background:#ff8a8a}
+#s1.ok .d{border-color:#8dffb8;background:#8dffb8}
+#dots.shake{animation:shake .45s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(4px)}}
+#msg{height:22px;font-size:.95rem;margin-bottom:22px;opacity:0;transition:.3s}
+#msg.show{opacity:1}
+#s1.bad #msg{color:#ffa3a3}#s1.ok #msg{color:#9dffc4}
+#pad{display:grid;grid-template-columns:repeat(3,min(21vw,80px));gap:min(4.5vw,18px)}
+.k{aspect-ratio:1;border-radius:50%;color:#fff;font-size:2rem;font-weight:300;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,background .25s}
+.k:active{transform:scale(.88);background:rgba(255,255,255,.45)}
+.k.e{visibility:hidden}.k.x{background:none;border:0;box-shadow:none;backdrop-filter:none;font-size:1.5rem}
+
+/* ---------- LOTUS ---------- */
+#s2 h1{font-style:italic;font-weight:800;font-size:clamp(1.5rem,6vw,2.2rem);margin:0;text-shadow:0 0 18px #ff9ad588}
+#s2 svg{width:min(100vw,640px);height:auto;max-height:70vh;display:block;overflow:visible}
+.v{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.go .v{animation:draw 3.6s ease-in-out forwards;animation-delay:var(--d)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.blend{mix-blend-mode:screen}
+.pill{padding:12px 34px;border-radius:40px;color:#fff;font-size:1.05rem;text-decoration:none;display:inline-block;cursor:pointer;transition:transform .2s,opacity 1s}
+.pill:active{transform:scale(.94)}
+#nxt{opacity:0;pointer-events:none;margin-top:6px}#nxt.show{opacity:1;pointer-events:auto}
+
+/* ---------- INSTA ---------- */
+#card{width:min(86vw,380px);padding:36px 24px 30px;border-radius:36px;text-align:center;transform:translateY(40px) scale(.9);opacity:0;transition:all 1s cubic-bezier(.2,.9,.2,1) .3s}
+#s3.on #card{transform:none;opacity:1}
+#ring{width:116px;height:116px;border-radius:50%;margin:0 auto 20px;padding:4px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);animation:float 4s ease-in-out infinite;box-shadow:0 0 40px #d6297677}
+#ring div{width:100%;height:100%;border-radius:50%;background:#150c22;display:flex;align-items:center;justify-content:center}
+@keyframes float{50%{transform:translateY(-8px)}}
+#card small{opacity:.7;font-size:.9rem}
+#iid{font-size:1.6rem;font-weight:600;margin:6px 0 22px;word-break:break-all}
+</style>
+</head>
+<body>
+<div id="bg"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
+
+<!-- SCREEN 1: PASSWORD -->
+<section id="s1" class="scr on">
+ <svg class="lockic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+ <div id="title">Password dalo</div>
+ <div id="dots"></div>
+ <div id="msg"></div>
+ <div id="pad"></div>
+</section>
+
+<!-- SCREEN 2: LOTUS -->
+<section id="s2" class="scr">
+ <h1>Programmer's flowers 🌹</h1>
+ <svg id="flower-frame" viewBox="0 0 600 520">
+  <defs>
+   <linearGradient id="gb" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffd9a8"/><stop offset=".5" stop-color="#e98fd2"/><stop offset="1" stop-color="#8f6bff"/></linearGradient>
+   <linearGradient id="gm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff0cf"/><stop offset=".5" stop-color="#ffb3dc"/><stop offset="1" stop-color="#b79bff"/></linearGradient>
+   <linearGradient id="gf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fffbe8"/><stop offset=".5" stop-color="#ffd0ea"/><stop offset="1" stop-color="#e8d4ff"/></linearGradient>
+   <linearGradient id="hl" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+   <linearGradient id="st" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#8a6a2e"/><stop offset="1" stop-color="#f3d58a"/></linearGradient>
+   <radialGradient id="haloG"><stop offset="0" stop-color="#ffc6ea" stop-opacity=".75"/><stop offset=".5" stop-color="#ff7ac8" stop-opacity=".25"/><stop offset="1" stop-color="#ff7ac8" stop-opacity="0"/></radialGradient>
+   <radialGradient id="coreG"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#fff0b8" stop-opacity=".85"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle id="haloC" cx="300" cy="320" r="260" fill="url(#haloG)" opacity="0"/>
+  <g id="vines"></g>
+  <g id="flowerG">
+   <path d="M300 520C306 470 294 430 300 385" stroke="url(#st)" stroke-width="5" fill="none" stroke-linecap="round"/>
+   <g id="L1" class="blend"></g><g id="L2" class="blend"></g><g id="L3" class="blend"></g>
+   <circle id="coreC" cx="300" cy="345" r="95" fill="url(#coreG)" class="blend" opacity="0"/>
+   <g id="stamens" opacity="0"></g>
+  </g>
+  <g id="dotsG"></g>
+ </svg>
+ <a id="nxt" class="pill glass">Aage →</a>
+</section>
+
+<!-- SCREEN 3: INSTAGRAM -->
+<section id="s3" class="scr">
+ <div id="card" class="glass">
+  <div id="ring"><div><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="#fff" stroke="none"/></svg></div></div>
+  <small>Meri Instagram ID</small>
+  <div id="iid"></div>
+  <a id="ilink" class="pill glass" target="_blank" rel="noopener">Instagram kholo</a>
+ </div>
+</section>
+
+<script>
+/* ====== SETTINGS ====== */
+const PASS = '637549';
+const INSTA_ID = 'your_insta_id';   // <-- yahan apni Instagram ID likho (@ ke bina)
+/* ====================== */
+
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+let cur = 1;
+function go(n){
+ cur = n;
+ document.querySelectorAll('.scr').forEach((s,i)=>s.classList.toggle('on',i+1===n));
+ document.body.classList.toggle('dim',n===2);
+ if(n===2){startLotus();setTimeout(()=>$('nxt').classList.add('show'),6000)}
+ if(n===3)showInsta();
+}
+
+/* ---------- PASSWORD ---------- */
+let buf='',busy=false;
+for(let i=0;i<6;i++){const d=document.createElement('i');d.className='d';$('dots').appendChild(d)}
+['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(k=>{
+ const b=document.createElement('div');
+ b.className='k glass'+(k===''?' e':'')+(k==='⌫'?' x':'');
+ b.textContent=k;
+ b.onclick=()=>k==='⌫'?del():k!==''&&press(k);
+ $('pad').appendChild(b);
+});
+function draw(){[...$('dots').children].forEach((d,i)=>d.classList.toggle('f',i<buf.length))}
+function press(d){if(busy||buf.length>=6)return;buf+=d;draw();if(buf.length===6)check()}
+function del(){if(busy)return;buf=buf.slice(0,-1);draw()}
+function say(t){$('msg').textContent=t;$('msg').classList.add('show')}
+function check(){
+ busy=true;
+ if(buf===PASS){
+  $('s1').classList.add('ok');say('Sahi hai ✓');
+  setTimeout(()=>go(2),1000);
+ }else{
+  $('s1').classList.add('bad');say('Galat password');
+  $('dots').classList.add('shake');
+  if(navigator.vibrate)navigator.vibrate(120);
+  setTimeout(()=>{
+   buf='';draw();busy=false;
+   $('s1').classList.remove('bad');$('dots').classList.remove('shake');
+   $('msg').classList.remove('show');
+  },950);
+ }
+}
+addEventListener('keydown',e=>{
+ if(cur!==1)return;
+ if(/^\d$/.test(e.key))press(e.key);
+ else if(e.key==='Backspace')del();
+});
+
+/* ---------- LOTUS ---------- */
+function mk(L,W,fill,tip){
+ const g=el('g'),
+ d=`M0 0C${-W} ${-L*.2} ${-W*1.05} ${-L*.62} 0 ${-L}C${W*1.05} ${-L*.62} ${W} ${-L*.2} 0 0Z`;
+ el('path',{d,fill:'none',stroke:'#ff9ad5','stroke-opacity':.2,'stroke-width':7},g);
+ el('path',{d,fill:`url(#${fill})`,'fill-opacity':.62,stroke:'#fff','stroke-opacity':.85,'stroke-width':1.3},g);
+ const w=W*.62,l=L*.78;
+ el('path',{d:`M0 ${-L*.08}C${-w} ${-l*.25} ${-w} ${-l*.62} 0 ${-l}C${w} ${-l*.62} ${w} ${-l*.25} 0 ${-L*.08}Z`,fill:'url(#hl)'},g);
+ el('path',{d:`M0 ${-L*.05}L0 ${-L*.88}`,stroke:'#fff','stroke-opacity':.35,'stroke-width':1},g);
+ el('path',{d:`M${-W*.75} ${-L*.42}C${-W*.7} ${-L*.6} ${-W*.4} ${-L*.8} 0 ${-L*.97}`,fill:'none',stroke:'#8fd8ff','stroke-opacity':.55,'stroke-width':1.6},g);
+ if(tip){el('circle',{cy:-L,r:10,fill:'#ffa94d','fill-opacity':.3},g);el('circle',{cy:-L,r:3,fill:'#ffe2a8'},g)}
+ return g;
+}
+const layers=[
+ ['L1','gb',[[86,170,34,0],[70,185,38,.12],[54,195,40,.24]]],
+ ['L2','gm',[[38,190,38,.36],[24,182,36,.48],[10,168,32,.6]]],
+ ['L3','gf',[[64,115,30,.4],[24,122,27,.8],[12,138,28,.88],[0,152,36,.96]]]
+];
+const P=[];let n=0;
+layers.forEach(([id,fill,list])=>list.forEach(([a,L,W,d])=>{
+ (a?[a,-a]:[0]).forEach(ang=>{
+  const g=mk(L,W,fill,id!=='L3'&&Math.abs(a)>=54);
+  $(id).appendChild(g);P.push({g,a:ang,d,i:n++});
+ });
+}));
+const vd=[
+ ['M300 390C210 400 110 355 85 265C70 210 110 165 150 180C180 193 175 230 150 230C135 230 130 213 142 207',0],
+ ['M300 388C230 372 150 332 135 272C122 227 150 192 185 202C205 209 205 234 188 238',.4],
+ ['M300 392C180 425 40 375 20 295C8 250 35 220 60 230',.8],
+ ['M280 335C200 305 160 235 190 165C205 130 245 115 262 135',1.2],
+ ['M262 245C215 175 235 95 300 62',1.6],
+ ['M300 392C250 380 215 340 205 300C198 270 215 250 235 262',2]
+];
+const left=el('g');
+vd.forEach(([d,dl])=>[[7,.18],[1.6,1]].forEach(([w,o])=>el('path',{d,pathLength:1,class:'v',stroke:'#f6cf7c','stroke-width':w,'stroke-opacity':o,style:`--d:${1.4+dl}s`},left)));
+const right=left.cloneNode(true);right.setAttribute('transform','translate(600 0) scale(-1 1)');
+$('vines').append(left,right);
+for(let i=-11;i<=11;i++){
+ const a=i*3.4*Math.PI/180,len=62+Math.cos(i*.28)*26,x=300+Math.sin(a)*len,y=348-Math.cos(a)*len;
+ el('line',{x1:300+i*1.5,y1:352,x2:x,y2:y,stroke:'#ffe29a','stroke-width':1.1,'stroke-opacity':.85},$('stamens'));
+ el('circle',{cx:x,cy:y,r:1.8,fill:'#fff3c4'},$('stamens'));
+}
+const S=[];
+for(let i=0;i<60;i++){
+ S.push({c:el('circle',{fill:'#ffe9c4'},$('dotsG')),x:Math.random()*600,y:Math.random()*520,v:6+Math.random()*16,r:.6+Math.random()*1.8,ph:Math.random()*6.28,sp:1+Math.random()*2});
+}
+const ease=p=>{p=Math.min(1,Math.max(0,p));return 1+2.2*Math.pow(p-1,3)+1.2*Math.pow(p-1,2)};
+const cl=v=>Math.min(1,Math.max(0,v));
+let t0=0,last=0,run=false;
+function startLotus(){t0=performance.now();last=t0;run=true;$('s2').classList.add('go');requestAnimationFrame(frame)}
+function frame(now){
+ if(!run)return;
+ const t=(now-t0)/1000,dt=Math.min(.05,(now-last)/1000);last=now;
+ const b=cl((t-5)/2);
+ $('flowerG').setAttribute('transform',`translate(0 ${(Math.sin(t*.9)*3*b).toFixed(2)})`);
+ P.forEach(o=>{
+  const p=(t-o.d*2.2-.3)/2.4,e=ease(p);
+  const rot=o.a*(.08+.92*e)+b*Math.sin(t*.8+o.i)*.9;
+  const sc=(.12+.88*e)*(1+b*.012*Math.sin(t*1.2+o.i*.6));
+  o.g.setAttribute('transform',`translate(300 385) rotate(${rot.toFixed(2)}) scale(${sc.toFixed(3)})`);
+  o.g.setAttribute('opacity',cl(p*2.5));
+ });
+ $('coreC').setAttribute('opacity',cl((t-1)/2)*(.88+.12*Math.sin(t*2)));
+ $('haloC').setAttribute('opacity',cl((t-.5)/2.5)*(.85+.15*Math.sin(t*1.4)));
+ $('stamens').setAttribute('opacity',cl((t-2)/1.5)*(.8+.2*Math.sin(t*3)));
+ S.forEach(s=>{
+  s.y-=s.v*dt;if(s.y<60){s.y=520;s.x=Math.random()*600}
+  const tw=.5+.5*Math.sin(t*s.sp+s.ph);
+  s.c.setAttribute('cx',s.x+Math.sin(t*.6+s.ph)*6);
+  s.c.setAttribute('cy',s.y);
+  s.c.setAttribute('r',s.r*(.6+tw*.7));
+  s.c.setAttribute('opacity',cl(t-1)*tw*.9);
+ });
+ requestAnimationFrame(frame);
+}
+$('nxt').onclick=()=>{run=false;go(3)};
+
+/* ---------- INSTAGRAM ---------- */
+function getId(){try{return localStorage.getItem('insta')||INSTA_ID}catch(e){return INSTA_ID}}
+function showInsta(){
+ const id=getId().replace('@','');
+ $('iid').textContent='@'+id;
+ $('ilink').href='https://instagram.com/'+id;
+}
+/* Owner: card ko 1 second dabake rakho -> apni device par ID badal sakte ho */
+let lp;
+$('card').addEventListener('pointerdown',e=>{
+ if(e.target.closest('a'))return;
+ lp=setTimeout(()=>{
+  const v=prompt('Nayi Instagram ID likho (@ ke bina):',getId());
+  if(v&&v.trim()){try{localStorage.setItem('insta',v.trim())}catch(e){}showInsta()}
+ },1000);
+});
+['pointerup','pointerleave','pointercancel'].forEach(ev=>$('card').addEventListener(ev,()=>clearTimeout(lp)));
+</script>
+</body>
+  </html>
